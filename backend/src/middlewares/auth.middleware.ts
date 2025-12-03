@@ -11,15 +11,17 @@ export const protect = async (req: AuthRequest, res: Response, next: NextFunctio
   if (req.headers.authorization && req.headers.authorization.startsWith('Bearer')) {
     try {
       token = req.headers.authorization.split(' ')[1];
-      const decoded = jwt.verify(token, process.env.JWT_SECRET as string);
-      req.user = decoded;
+      const decoded = jwt.verify(token, process.env.JWT_SECRET as string) as any;
+
+      // Attach userId as id
+      req.user = { id: decoded.userId };
+
       next();
     } catch (error) {
+      console.error("❌ Token verification error:", error);
       res.status(401).json({ message: 'Not authorized, token failed' });
     }
-  }
-
-  if (!token) {
+  } else {
     res.status(401).json({ message: 'Not authorized, no token' });
   }
 };

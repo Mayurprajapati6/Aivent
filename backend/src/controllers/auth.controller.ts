@@ -7,17 +7,23 @@ import { User } from '../models/User';
 //     return jwt.sign({ id }, process.env.JWT_SECRET as string, { expiresIn: '30d'});
 // };
 
-export const registerUser = async (req: Request, res: Response) => {
+export async function  registerUser (req: Request, res: Response) {
     try {
+        if (!req.body) {
+          res.status(400).json({ message: "Request body is missing" });
+            
+        }
         const { name, email, password } = req.body;
 
         if (!name || !email || !password){
-            return res.status(400).json({ message: "Missing fields" });
+          res.status(400).json({ message: "Missing fields" });
+          
         }
 
         const userExists = await User.findOne({ email });
         if(userExists) {
-            return res.status(409).json({ message: 'User already registered'});
+          res.status(409).json({ message: 'User already registered'});
+  
         }
 
         const salt = await bcrypt.genSalt(10);
@@ -30,44 +36,79 @@ export const registerUser = async (req: Request, res: Response) => {
             process.env.JWT_SECRET as string,
             { expiresIn: "30d" }
         );
-        return res.status(201).json({
+        res.status(201).json({
             token,
             user: { id: String(user._id), name: user.name, email: user.email },
         });
 
     } catch (error) {
-        return res.status(500).json({ message: "Registration failed" });
+        res.status(500).json({ message: "Registration failed" });
     }
     
 }
 
-export async function login(req: Request, res: Response) {
+export async function loginUser(req: Request, res: Response) {
   try {
-    const { email, password } = req.body as { email: string; password: string };
-    if (!email || !password)
-      return res.status(400).json({ message: "Missing fields" });
+    
+    const { email, password } = req.body;
+    
 
-    const user = await User.findOne({ email });
-    if (!user || !user.password) return res.status(401).json({ message: "Invalid credentials" });
+    if (!email || !password) {
+      res.status(400).json({ message: "Missing fields" });
+    } else {
+      const user = await User.findOne({ email });
 
-    const ok = await bcrypt.compare(password, user.password);
-    if (!ok) return res.status(401).json({ message: "Invalid credentials" });
+      // Check if user exists and has password
+      if (!user || !user.password) {
+        res.status(401).json({ message: "Invalid credentials" });
+      } else {
+        // TypeScript safe
+        const hashedPassword = user.password as string;
 
-    const token = jwt.sign(
-      { userId: String(user._id) },
-      process.env.JWT_SECRET as string,
-      { expiresIn: "7d" }
-    );
-    return res.json({
-      token,
-      user: { id: String(user._id), name: user.name, email: user.email },
-    });
+        const isMatch = await bcrypt.compare(password, hashedPassword);
+
+        if (!isMatch) {
+          res.status(401).json({ message: "Invalid credentials" });
+        } else {
+          const token = jwt.sign(
+            { userId: user._id.toString() },
+            process.env.JWT_SECRET as string,
+            { expiresIn: "30d" }
+          );
+
+          res.status(200).json({
+            token,
+            user: {
+              id: user._id.toString(),
+              name: user.name,
+              email: user.email,
+            },
+          });
+        }
+      }
+    }
   } catch (err) {
-    return res.status(500).json({ message: "Login failed" });
+    console.error("❌ Login error:", err);
+    res.status(500).json({ message: "Login failed" });
+  }
+}
+
+export const getMe = async (req: any, res: Response) => {
+  try {
+    const user = await User.findById(req.user.id).select("-password");
+
+    if (!user) {
+      res.status(404).json({ message: "User not found" });
+      return;
+    }
+
+    res.status(200).json(user);
+
+  } catch (err) {
+    console.error("❌ getMe error:", err);
+    res.status(500).json({ message: "Failed to get user" });
   }
 };
 
-export const getMe = async (req: any, res: Response) => {
-  const user = await User.findById(req.user.id).select('-password');
-  res.json(user);
-};
+
+
