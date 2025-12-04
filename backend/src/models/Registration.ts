@@ -7,6 +7,7 @@ export interface IRegistration extends Document{
     attendeeEmail: string;
     qrCode: string;
     checkedIn: boolean;
+    checkedInAt?: Date;
     status: 'confirmed' | 'cancelled';
 }
 
@@ -17,6 +18,7 @@ const RegistrationSchema = new Schema({
     attendeeEmail: String,
     qrCode: { type: String, unique: true },
     checkedIn: { type: Boolean, default: false },
+    checkedInAt: Date,
     status: { type: String, enum: ['confirmed', 'cancelled'], default: 'confirmed' }
 }, { timestamps: true });
 

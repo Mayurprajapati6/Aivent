@@ -6,7 +6,8 @@ export interface IUser extends Document {
     password?: string,
     interests?: string[],
     location?: { city: string; state: string; country: string},
-    freeEventsCreated: number
+    freeEventsCreated: number,
+    hasCompletedOnboarding?: boolean
 }
 
 const UserSchema = new Schema({
@@ -19,7 +20,8 @@ const UserSchema = new Schema({
         state: String,
         country: String,
     },
-    freeEventsCreated: { type: Number, default: 0}
+    freeEventsCreated: { type: Number, default: 0},
+    hasCompletedOnboarding: { type: Boolean, default: false}
 }, { timestamps: true});
 
 export const User = mongoose.model<IUser>('User',UserSchema);

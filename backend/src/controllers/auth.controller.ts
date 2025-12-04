@@ -110,5 +110,32 @@ export const getMe = async (req: any, res: Response) => {
   }
 };
 
+export const updateUser = async (req: any, res: Response) => {
+  try {
+    const { location, interests } = req.body;
+    
+    const updateData: any = {};
+    if (location) updateData.location = location;
+    if (interests) updateData.interests = interests;
+    if (location || interests) updateData.hasCompletedOnboarding = true;
+
+    const user = await User.findByIdAndUpdate(
+      req.user.id,
+      updateData,
+      { new: true }
+    ).select("-password");
+
+    if (!user) {
+      res.status(404).json({ message: "User not found" });
+      return;
+    }
+
+    res.status(200).json(user);
+  } catch (err) {
+    console.error("❌ Update user error:", err);
+    res.status(500).json({ message: "Failed to update user" });
+  }
+};
+
 
 

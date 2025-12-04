@@ -8,7 +8,11 @@ import { connectDB } from './config/db';
 import v1Router from './routers/v1/index.router';
 const app = express();
 
-app.use(cors());
+app.use(cors({
+  origin: "http://localhost:5173",   // your React frontend
+  credentials: true
+}));
+
 app.use(express.json());
 //app.use(express.urlencoded({ extended: true }));
 
