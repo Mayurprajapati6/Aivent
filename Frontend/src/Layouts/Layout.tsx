@@ -6,8 +6,7 @@ type Props = {
 
 function Layout({ children }: Props) {
     return (
-        <div className="bg-linear-to-br from-gray-950 via-zinc-900 to-stone-900 text-white">
-            
+        <div className="bg-gradient-to-b from-slate-950 via-slate-950 to-indigo-950 text-white min-h-screen">
             {children}
         </div>
     );
