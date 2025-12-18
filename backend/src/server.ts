@@ -6,6 +6,8 @@ import logger from './config/logger.config';
 import { attachCorrelationIdMiddleware } from './middlewares/correlation.middleware';
 import { connectDB } from './config/db';
 import v1Router from './routers/v1/index.router';
+import { setupMailerWorker } from './queues/mailer.processor';
+
 const app = express();
 
 app.use(cors({
@@ -40,4 +42,9 @@ app.listen(serverConfig.PORT, async () => {
     console.log(`Server is running on http://localhost:${serverConfig.PORT}`)
 
     await connectDB();
+
+    setupMailerWorker(); 
+    logger.info(`Mailer worker setup completed.`);
+
+    
 });

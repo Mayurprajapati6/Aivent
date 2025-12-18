@@ -23,7 +23,7 @@ eventRouter.get('/:eventId/registrations',protect,(req, res, next) => { void get
 eventRouter.delete('/:eventId',protect,(req, res, next) => { void deleteEvent(req, res).catch(next); });
 
 //slug route must be last
-eventRouter.get('/:slug', getEventBySlug);
+eventRouter.get('/:slug', (req, res, next) => { void getEventBySlug(req, res).catch(next); });
 
 
 

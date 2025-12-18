@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8" />
+  <title>Event Cancelled</title>
+</head>
+<body style="margin:0; padding:0; background:#f4f6f8; font-family:Arial, sans-serif;">
+  <table width="100%" cellpadding="0" cellspacing="0">
+    <tr>
+      <td align="center" style="padding:30px;">
+        <table width="600" cellpadding="0" cellspacing="0" style="background:#ffffff; border-radius:10px; padding:30px;">
+          
+          <tr>
+            <td style="text-align:center;">
+              <h2 style="color:#e74c3c;">⚠️ Event Cancelled</h2>
+            </td>
+          </tr>
+
+          <tr>
+            <td style="padding:10px 0; color:#333;">
+              Hi <strong>{{userName}}</strong>,
+              <br /><br />
+              Unfortunately, the following event has been cancelled.
+            </td>
+          </tr>
+
+          <tr>
+            <td style="padding:20px 0;">
+              <table width="100%">
+                <tr>
+                  <td><strong>🎫 Event</strong></td>
+                  <td>{{eventName}}</td>
+                </tr>
+                <tr>
+                  <td><strong>👤 Organizer</strong></td>
+                  <td>{{organizerName}}</td>
+                </tr>
+                <tr>
+                  <td><strong>📅 Date</strong></td>
+                  <td>{{date}}</td>
+                </tr>
+                <tr>
+                  <td><strong>⏰ Time</strong></td>
+                  <td>{{time}}</td>
+                </tr>
+                <tr>
+                  <td><strong>📍 Venue</strong></td>
+                  <td>{{venue}}</td>
+                </tr>
+              </table>
+            </td>
+          </tr>
+
+          <tr>
+            <td style="color:#666; font-size:14px; text-align:center;">
+              We apologize for the inconvenience.
+              <br /><br />
+              Regards,<br />
+              <strong>{{appName}} Team</strong>
+            </td>
+          </tr>
+
+        </table>
+      </td>
+    </tr>
+  </table>
+</body>
+</html>
