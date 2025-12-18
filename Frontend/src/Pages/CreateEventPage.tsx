@@ -403,12 +403,12 @@ export default function CreateEventPage() {
               <div className="grid grid-cols-[1fr_auto_auto] gap-2 items-center w-full">
                 <Popover open={startDatePickerOpen} onOpenChange={setStartDatePickerOpen}>
                   <PopoverTrigger asChild>
-                    <Button variant="outline" className="w-full justify-between text-sm sm:text-base" type="button">
+                    <Button variant="outline" className="w-full justify-between text-sm sm:text-base cursor-pointer" type="button">
                       {startDate ? format(startDate, "PPP") : "Pick date"}
                       <CalendarIcon className="w-4 h-4 opacity-60" />
                     </Button>
                   </PopoverTrigger>
-                  <PopoverContent className="p-0 bg-gray-700" >
+                  <PopoverContent className="p-0 bg-gray-700 " >
                     <Calendar
                       mode="single"
                       selected={startDate}
@@ -433,7 +433,7 @@ export default function CreateEventPage() {
                   value={startPeriod}
                   onValueChange={(value: "AM" | "PM") => setStartPeriod(value)}
                 >
-                  <SelectTrigger className="w-16 sm:w-20">
+                  <SelectTrigger className="w-16 sm:w-20 cursor-pointer">
                     <SelectValue placeholder="AM" />
                   </SelectTrigger>
                   <SelectContent className="bg-gray-700">
@@ -454,14 +454,15 @@ export default function CreateEventPage() {
               <div className="grid grid-cols-[1fr_auto_auto] gap-2 items-center w-full">
                 <Popover open={endDatePickerOpen} onOpenChange={setEndDatePickerOpen}>
                   <PopoverTrigger asChild>
-                    <Button variant="outline" className="w-full justify-between text-sm sm:text-base" type="button">
+                    <Button variant="outline" className="w-full justify-between text-sm sm:text-base cursor-pointer" type="button">
                       {endDate ? format(endDate, "PPP") : "Pick date"}
                       <CalendarIcon className="w-4 h-4 opacity-60" />
                     </Button>
                   </PopoverTrigger>
-                  <PopoverContent className="p-0 bg-gray-700">
+                  <PopoverContent className="p-0 bg-gray-700 ">
                     <Calendar
                       mode="single"
+                
                       selected={endDate}
                       onSelect={(date) => {
                         setValue("endDate", date as Date);
@@ -484,7 +485,7 @@ export default function CreateEventPage() {
                   
                   onValueChange={(value: "AM" | "PM") => setEndPeriod(value)}
                 >
-                  <SelectTrigger className="w-16 sm:w-20">
+                  <SelectTrigger className="w-16 sm:w-20 cursor-pointer">
                     <SelectValue placeholder="AM" />
                   </SelectTrigger>
                   <SelectContent className="bg-gray-700">
@@ -510,7 +511,7 @@ export default function CreateEventPage() {
               name="category"
               render={({ field }) => (
                 <Select value={field.value} onValueChange={field.onChange}>
-                  <SelectTrigger className="w-full">
+                  <SelectTrigger className="w-full cursor-pointer">
                     <SelectValue placeholder="Select category" />
                   </SelectTrigger>
                   <SelectContent className="bg-gray-700 ">
@@ -543,10 +544,10 @@ export default function CreateEventPage() {
                       setValue("city", "");
                     }}
                   >
-                    <SelectTrigger className="w-full">
+                    <SelectTrigger className="w-full cursor-pointer">
                       <SelectValue placeholder="Select state" />
                     </SelectTrigger>
-                    <SelectContent className="bg-gray-700">
+                    <SelectContent className="bg-gray-700 ">
                       {indianStates.map((s) => (
                         <SelectItem key={s.isoCode} value={s.name} className="cursor-pointer hover:bg-gray-900">
                           {s.name}
@@ -565,7 +566,7 @@ export default function CreateEventPage() {
                     onValueChange={field.onChange}
                     disabled={!selectedState}
                   >
-                    <SelectTrigger className="w-full">
+                    <SelectTrigger className="w-full cursor-pointer">
                       <SelectValue placeholder={selectedState ? "Select city" : "Select state first"} />
                     </SelectTrigger>
                     <SelectContent className="bg-gray-700">
@@ -624,12 +625,12 @@ export default function CreateEventPage() {
           {/* Ticketing */}
           <div className="space-y-3">
             <Label className="text-sm">Tickets</Label>
-            <div className="flex items-center gap-6">
+            <div className="flex items-center gap-6 ">
               <label className="flex items-center gap-2">
-                <input type="radio" value="free" {...register("ticketType")} defaultChecked /> Free
+                <input type="radio" className="cursor-pointer" value="free" {...register("ticketType")} defaultChecked /> Free
               </label>
               <label className="flex items-center gap-2">
-                <input type="radio" value="paid" {...register("ticketType")} /> Paid
+                <input type="radio" className="cursor-pointer" value="paid" {...register("ticketType")} /> Paid
               </label>
             </div>
             {ticketType === "paid" && (
@@ -658,7 +659,7 @@ export default function CreateEventPage() {
           <Button
             type="submit"
             disabled={loading}
-            className="w-full py-6 text-lg rounded-xl bg-gradient-to-r from-orange-500 via-rose-500 to-purple-600 text-white font-semibold shadow-[0_10px_30px_rgba(236,72,153,0.35)] hover:scale-[1.01] transition-transform disabled:opacity-70"
+            className="w-full cursor-pointer py-6 text-lg rounded-xl bg-gradient-to-r from-orange-500 via-rose-500 to-purple-600 text-white font-semibold shadow-[0_10px_30px_rgba(236,72,153,0.35)] hover:scale-[1.01] transition-transform disabled:opacity-70"
           >
             {loading ? (
               <>

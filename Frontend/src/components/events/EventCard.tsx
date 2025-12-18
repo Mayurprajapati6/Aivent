@@ -69,10 +69,11 @@ export default function EventCard({
 
   return (
     <Card
-      className={`overflow-hidden group pt-0 ${onClick ? "cursor-pointer hover:shadow-lg transition-all hover:border-purple-500/50" : ""} ${className}`}
+      className={`overflow-hidden group pt-0 flex flex-col h-full ${onClick ? "cursor-pointer hover:shadow-lg transition-all hover:border-purple-500/50" : ""} ${className}`}
       onClick={onClick}
     >
-      <div className="relative h-48 overflow-hidden">
+      {/* Image Section - Fixed Height */}
+      <div className="relative h-48 overflow-hidden flex-shrink-0">
         {event.coverImage ? (
           <img
             src={event.coverImage}
@@ -93,20 +94,25 @@ export default function EventCard({
           </Badge>
         </div>
       </div>
-      <CardContent className="space-y-3">
-        <div>
+
+      {/* Content Section - Flexible */}
+      <CardContent className="flex flex-col flex-grow p-4">
+        {/* Header */}
+        <div className="mb-3">
           <Badge variant="outline" className="mb-2">
             {getCategoryIcon(event.category)} {getCategoryLabel(event.category)}
           </Badge>
-          <h3 className="font-semibold text-lg line-clamp-2">{event.title}</h3>
+          <h3 className="font-semibold text-lg line-clamp-2 min-h-[3.5rem]">{event.title}</h3>
         </div>
-        <div className="space-y-2 text-sm text-muted-foreground">
+
+        {/* Info Section - Fixed Height */}
+        <div className="space-y-2 text-sm text-muted-foreground mb-4 flex-grow">
           <div className="flex items-center gap-2">
-            <Calendar className="w-4 h-4" />
-            <span>{format(startDate, "PPP")}</span>
+            <Calendar className="w-4 h-4 flex-shrink-0" />
+            <span className="line-clamp-1">{format(startDate, "PPP")}</span>
           </div>
           <div className="flex items-center gap-2">
-            <MapPin className="w-4 h-4" />
+            <MapPin className="w-4 h-4 flex-shrink-0" />
             <span className="line-clamp-1">
               {event.locationType === "online"
                 ? "Online Event"
@@ -114,14 +120,16 @@ export default function EventCard({
             </span>
           </div>
           <div className="flex items-center gap-2">
-            <Users className="w-4 h-4" />
+            <Users className="w-4 h-4 flex-shrink-0" />
             <span>
               {event.registrationCount} / {event.capacity} registered
             </span>
           </div>
         </div>
+
+        {/* Action Buttons - Always at Bottom */}
         {action && (
-          <div className="flex gap-2 pt-2">
+          <div className="flex gap-2 mt-auto pt-2">
             <Button
               variant="outline"
               size="sm"
@@ -147,7 +155,7 @@ export default function EventCard({
               <Button
                 variant="outline"
                 size="sm"
-                className="gap-2 text-red-500 hover:text-red-600"
+                className="gap-2 text-red-500 hover:text-red-600 hover:bg-red-50"
                 onClick={(e) => {
                   e.stopPropagation();
                   onDelete(event._id);
@@ -166,4 +174,3 @@ export default function EventCard({
     </Card>
   );
 }
-

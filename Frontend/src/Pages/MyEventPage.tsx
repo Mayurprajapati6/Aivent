@@ -74,7 +74,11 @@ export default function MyEventsPage() {
               <p className="text-sm sm:text-base text-muted-foreground">
                 Create your first event and start managing attendees
               </p>
-              <Button asChild className="gap-2 w-full sm:w-auto">
+              <Button asChild className="gap-2 w-full sm:w-auto flex-1  font-semibold
+                border border-purple-500 bg-purple-600/90 
+              hover:bg-purple-600 hover:scale-[1.02]
+                transition-all duration-300
+                shadow-lg shadow-purple-500/20 active:scale-95 cursor-pointer">
                 <Link to="/create-event">
                   <Plus className="w-4 h-4" />
                   Create Your First Event

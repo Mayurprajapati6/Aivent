@@ -1,6 +1,6 @@
 import axios from 'axios';
 
-const DEFAULT_BACKEND_URL = 'http://localhost:3000/api';
+const DEFAULT_BACKEND_URL = 'http://localhost:3001/api';
 const rawBaseUrl = import.meta.env.VITE_BACKEND_URL || DEFAULT_BACKEND_URL;
 const normalizedBaseUrl = rawBaseUrl.replace(/\/+$/, '');
 const hasVersionInBase = /\/v\d+$/i.test(normalizedBaseUrl);

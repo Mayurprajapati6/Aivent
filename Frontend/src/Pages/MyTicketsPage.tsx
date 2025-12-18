@@ -84,7 +84,7 @@ export default function MyTicketsPage() {
         {upcomingTickets.length > 0 && (
           <div className="mb-12">
             <h2 className="text-2xl font-bold mb-4">Upcoming Events</h2>
-            <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
               {upcomingTickets.map((registration) => (
                 <EventCard
                   key={registration._id}
@@ -102,7 +102,7 @@ export default function MyTicketsPage() {
         {pastTickets.length > 0 && (
           <div>
             <h2 className="text-2xl font-bold mb-4">Past Events</h2>
-            <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
               {pastTickets.map((registration) => (
                 <EventCard
                   key={registration._id}
@@ -124,9 +124,9 @@ export default function MyTicketsPage() {
               <p className="text-muted-foreground">
                 Register for events to see your tickets here
               </p>
-              <Button asChild className="gap-2">
+              <Button asChild className="gap-2 px-4 py-2 rounded-full font-semibold transition-all duration-300 bg-green-600 text-white shadow-md scale-105 hover:bg-green-800">
                 <Link to="/explore">
-                  <Ticket className="w-4 h-4" /> Browse Events
+                  <Ticket className="w-4 h-4 " /> Browse Events
                 </Link>
               </Button>
             </div>
@@ -183,4 +183,3 @@ export default function MyTicketsPage() {
     </div>
   );
 }
-

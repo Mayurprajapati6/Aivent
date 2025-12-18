@@ -7,6 +7,7 @@ import Header from "./components/layout/Header";
 import Footer from "./components/layout/Footer";
 import OnboardingModal from "./components/OnboardingModal";
 import { useOnboarding } from "./hooks/useOnboarding";
+import ScrollToTop from "./components/ScrollToTop"; // <-- ADD THIS
 
 // Pages
 import LandingPage from "./Pages/LandingPage";
@@ -19,6 +20,7 @@ import EventDashboardPage from "./Pages/EventDashboardPage";
 import SignInPage from "./components/auth/SignIn";
 import SignUpPage from "./components/auth/SignUp";
 import ProtectedRoute from "./components/layout/ProtectedRoute";
+import AboutPage from "./Pages/AboutPage";
 
 function AppContent() {
   const { showOnboarding, handleOnboardingComplete, handleOnboardingSkip } = useOnboarding();
@@ -26,59 +28,65 @@ function AppContent() {
   return (
     <Layout>
       <Header />
-      <main className="relative min-h-screen container mx-auto pt-4">
-            {/* Background glow effects */}
-            <div className="pointer-events-none fixed inset-0 -z-10 overflow-hidden">
-              <div className="absolute top-0 left-1/4 w-96 h-96 bg-pink-600/20 rounded-full blur-3xl" />
-              <div className="absolute bottom-0 right-1/4 w-96 h-96 bg-orange-600/20 rounded-full blur-3xl" />
-            </div>
 
-            {/* Page content */}
-            <div className="relative z-10">
-              <Routes>
-                <Route path="/" element={<LandingPage />} />
-                <Route path="/explore" element={<ExplorePage />} />
-                <Route path="/explore/:slug" element={<ExplorePage />} />
-                <Route path="/events/:slug" element={<EventDetailPage />} />
-                <Route path="/sign-in" element={<SignInPage />} />
-                <Route path="/sign-up" element={<SignUpPage />} />
-                
-                <Route
-                  path="/create-event"
-                  element={
-                    <ProtectedRoute>
-                      <CreateEventPage />
-                    </ProtectedRoute>
-                  }
-                />
-                <Route
-                  path="/my-events"
-                  element={
-                    <ProtectedRoute>
-                      <MyEventsPage />
-                    </ProtectedRoute>
-                  }
-                />
-                <Route
-                  path="/my-events/:eventId"
-                  element={
-                    <ProtectedRoute>
-                      <EventDashboardPage />
-                    </ProtectedRoute>
-                  }
-                />
-                <Route
-                  path="/my-tickets"
-                  element={
-                    <ProtectedRoute>
-                      <MyTicketsPage />
-                    </ProtectedRoute>
-                  }
-                />
-              </Routes>
-            </div>
+      {/* scroll fix here */}
+      <ScrollToTop />
+
+      <main className="relative min-h-screen container mx-auto pt-4">
+        
+        <div className="pointer-events-none fixed inset-0 -z-10 overflow-hidden">
+          <div className="absolute top-0 left-1/4 w-96 h-96 bg-pink-600/20 rounded-full blur-3xl" />
+          <div className="absolute bottom-0 right-1/4 w-96 h-96 bg-orange-600/20 rounded-full blur-3xl" />
+        </div>
+
+        <div className="relative z-10">
+          <Routes>
+            <Route path="/" element={<LandingPage />} />
+            <Route path="/explore" element={<ExplorePage />} />
+            <Route path="/explore/:slug" element={<ExplorePage />} />
+            <Route path="/events/:slug" element={<EventDetailPage />} />
+            <Route path="/sign-in" element={<SignInPage />} />
+            <Route path="/sign-up" element={<SignUpPage />} />
+            <Route path="/about" element={<AboutPage />} />
+
+            <Route
+              path="/create-event"
+              element={
+                <ProtectedRoute>
+                  <CreateEventPage />
+                </ProtectedRoute>
+              }
+            />
+            <Route
+              path="/my-events"
+              element={
+                <ProtectedRoute>
+                  <MyEventsPage />
+                </ProtectedRoute>
+              }
+            />
+            <Route
+              path="/my-events/:eventId"
+              element={
+                <ProtectedRoute>
+                  <EventDashboardPage />
+                </ProtectedRoute>
+              }
+            />
+            <Route
+              path="/my-tickets"
+              element={
+                <ProtectedRoute>
+                  <MyTicketsPage />
+                </ProtectedRoute>
+              }
+            />
+          </Routes>
+        </div>
       </main>
+
       <Footer />
+
       <OnboardingModal
         isOpen={showOnboarding}
         onClose={handleOnboardingSkip}

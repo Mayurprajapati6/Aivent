@@ -62,16 +62,17 @@ export default function LandingPage() {
           </div>
 
           {/* Right - Phone Mockup with Animation */}
-          <div className="relative block animate-fade-in delay-300">
-            <div className="absolute inset-0 bg-gradient-to-r from-purple-500/20 to-orange-500/20 rounded-full blur-3xl animate-pulse" />
-            <img
-              src={heroImage}
-              alt="Aivent App"
-              width={700}
-              height={700}
-              className="w-full h-auto relative z-10 transform hover:scale-105 transition-transform duration-500"
-            />
+          <div className="relative block animate-fade-in delay-300 overflow-hidden rounded-[80px] custom-image-wrapper">
+          <div className="absolute inset-0 bg-gradient-to-r from-purple-500/20 to-orange-500/20 rounded-full blur-3xl animate-pulse" />
+              <img
+                src={heroImage}
+                alt="Aivent App"
+                width={700}
+                height={700}
+                className=" relative z-10 transition-transform duration-1000 hover:scale-105"
+              />
           </div>
+          
         </div>
       </section>
 

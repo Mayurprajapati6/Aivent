@@ -69,8 +69,8 @@ export default function ExplorePage() {
   };
 
   const handleViewLocalEvents = () => {
-    const userCity = user?.location?.city || "Gurugram";
-    const userState = user?.location?.state || "Haryana";
+    const userCity = user?.location?.city || "Anand";
+    const userState = user?.location?.state || "Gujarat";
     const locationSlug = createLocationSlug(userCity, userState);
     navigate(`/explore/${locationSlug}`);
   };
