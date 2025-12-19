@@ -246,29 +246,7 @@ export default function ExplorePage() {
         ) : (
           <>
             {/* Featured Events - Carousel */}
-            {featuredEvents.length > 0 && (
-              <div className="mb-10 sm:mb-12 md:mb-16">
-                <div className="mb-4 sm:mb-6 px-2">
-                  <h2 className="text-2xl sm:text-3xl font-bold mb-1 sm:mb-2">Featured Events</h2>
-                  <p className="text-sm sm:text-base text-gray-400">Handpicked events you don't want to miss</p>
-                </div>
-                <div className="relative">
-                  <div className="flex gap-4 sm:gap-6 overflow-x-auto pb-4 scrollbar-thin scrollbar-thumb-purple-600/60 scrollbar-track-transparent scroll-smooth px-2">
-                    {featuredEvents.map((event) => (
-                      <div
-                        key={event._id}
-                        className="min-w-[280px] sm:min-w-[300px] max-w-[320px] flex-shrink-0 transform hover:scale-105 transition-transform duration-300"
-                      >
-                        <EventCard
-                          event={event}
-                          onClick={() => handleEventClick(event.slug)}
-                        />
-                      </div>
-                    ))}
-                  </div>
-                </div>
-              </div>
-            )}
+            
 
             {/* Nearest Events Carousel */}
             <div className="mb-10 sm:mb-12 md:mb-16">
@@ -295,7 +273,8 @@ export default function ExplorePage() {
 
               {nearestEvents.length > 0 ? (
                 <div className="relative">
-                  <div className="flex gap-4 sm:gap-6 overflow-x-auto pb-4 scrollbar-thin scrollbar-thumb-purple-600/60 scrollbar-track-transparent scroll-smooth px-2">
+                  <div className="absolute right-0 top-0 h-full w-24 bg-gradient-to-l from-slate-950 to-transparent pointer-events-none z-10" />
+                  <div className="flex gap-4 sm:gap-6 overflow-x-auto scrollbar-hide ">
                     {nearestEvents.map((event) => (
                       <div
                         key={event._id}
@@ -338,7 +317,7 @@ export default function ExplorePage() {
                 <p className="text-sm sm:text-base text-gray-400">Find events by your interests</p>
               </div>
               <div className="relative">
-                <div className="flex gap-3 sm:gap-4 overflow-x-auto pb-4 scrollbar-thin scrollbar-thumb-purple-600/60 scrollbar-track-transparent scroll-smooth px-2">
+                <div className="flex gap-3 sm:gap-4 overflow-x-auto scrollbar-hide">
                   {categoriesWithCounts.map((category) => (
                     <Card
                       key={category.id}
@@ -381,7 +360,7 @@ export default function ExplorePage() {
 
                 {interestedEvents.length > 0 ? (
                   <div className="relative">
-                    <div className="flex gap-6 overflow-x-auto pb-4 scrollbar-thin scrollbar-thumb-purple-600/60 scrollbar-track-transparent scroll-smooth">
+                    <div className="flex gap-6 overflow-x-auto scrollbar-hide">
                       {interestedEvents.map((event) => (
                         <div
                           key={event._id}
@@ -420,7 +399,7 @@ export default function ExplorePage() {
                   <p className="text-sm sm:text-base text-gray-400">Trending events nationwide</p>
                 </div>
                 <div className="relative">
-                  <div className="flex gap-4 sm:gap-6 overflow-x-auto pb-4 scrollbar-thin scrollbar-thumb-purple-600/60 scrollbar-track-transparent scroll-smooth px-2">
+                  <div className="flex gap-4 sm:gap-6 overflow-x-auto scrollbar-hide">
                     {popularEvents.map((event) => (
                       <div
                         key={event._id}
@@ -459,4 +438,3 @@ export default function ExplorePage() {
     </div>
   );
 }
-
